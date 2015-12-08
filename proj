@@ -1,0 +1,39 @@
+#!/bin/sh
+# venv
+# Quick hack: autocomplete Sublime projects
+
+# Install:
+#       write this file as ~/.proj
+#       add to ~/.bash_profile: source ~/.venv
+
+VERSION="1.0"
+SUBLIME=`which subl`
+
+
+proj() {
+    $SUBLIME --project "$SUBLIME_PROJECTS_DIR/$1.sublime-project"
+}
+
+
+# Autocomplete
+_complete_proj() {
+    local cur
+
+    # List projects
+    PROJECTS=`\
+        find "$SUBLIME_PROJECTS_DIR" \
+        -type f -name '*.sublime-project' \
+        -exec sh -c 'basename "${0%.sublime-project}"' '{}' \;`
+
+    # Autocomplete reply
+    COMPREPLY=()
+    cur=${COMP_WORDS[COMP_CWORD]}
+
+    if [ "$1" = "proj" ] && [ "$3" = "proj" ]; then
+        COMPREPLY=( $( compgen -W '$PROJECTS' -- $cur ) )
+    fi
+
+    return
+}
+
+complete -F _complete_proj proj
