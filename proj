@@ -3,8 +3,13 @@
 # Quick hack: autocomplete Sublime projects
 
 # Install:
-#       write this file as ~/.proj
-#       add to ~/.bash_profile: source ~/.venv
+# 1. write this file as ~/.proj
+#
+# 2. add your projects dir in ~/.bash_profile:
+#     export SUBLIME_PROJECTS_DIR='/my/dir'
+#
+# 3. source ~/.proj in ~/.bash_profile:
+#     source ~/.venv
 
 VERSION="1.0"
 SUBLIME=`which subl`
