@@ -16,7 +16,18 @@ SUBLIME=`which subl`
 
 
 proj() {
-    $SUBLIME --project "$SUBLIME_PROJECTS_DIR/$1.sublime-project"
+    if [ "${1}" = "" ] && [ -f ".proj" ]; then
+        PROJECT=`cat .proj`
+    else
+        PROJECT=$1
+    fi
+
+    if [ "${PROJECT}" = "" ]; then
+        echo "Missing project name!"
+        return 1
+    fi
+
+    $SUBLIME --project "$SUBLIME_PROJECTS_DIR/${PROJECT}.sublime-project"
 }
 
 
